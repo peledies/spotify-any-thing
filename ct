@@ -9,7 +9,7 @@ default=$(tput sgr0)
 
 remote_superbird_path=/usr/share/qt-superbird-app
 remote_webapp_path=$remote_superbird_path/webapp
-local_webapp_path=./webapp
+local_webapp_path=./webapp/dist
 
 ATTACHED=$(./platform-tools/adb devices -l | grep 'spotify-car-thing')
 
@@ -45,6 +45,9 @@ function pull() {
 
 function push() {
   ./platform-tools/adb push $local_webapp_path $remote_superbird_path
+  ./platform-tools/adb shell rm -rf $remote_superbird_path/webapp/*
+  ./platform-tools/adb shell cp -R $remote_superbird_path/dist/* $remote_superbird_path/webapp/
+  ./platform-tools/adb shell rm -rf $remote_superbird_path/dist
 }
 
 function serve() {
