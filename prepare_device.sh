@@ -46,5 +46,6 @@ else
   exit 1
 fi
 
+cd superbird-tool
 info_box "Flashing firmware [${magenta}$firmware${cyan}]"
-python3 ./superbird-tool/superbird_tool.py --restore_device ./firmware/$firmware
+python3 ./superbird_tool.py --restore_device ../firmware/$firmware
