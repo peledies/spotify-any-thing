@@ -40,7 +40,7 @@ export default function App() {
   });
 
   useWheel((direction) => {
-    const newProgress = direction === "right" ? progress + 1 : progress - 1;
+    const newProgress = direction === "right" ? progress + 5 : progress - 5;
     setProgress(newProgress < 0 ? 0 : newProgress > 100 ? 100 : newProgress);
   });
 

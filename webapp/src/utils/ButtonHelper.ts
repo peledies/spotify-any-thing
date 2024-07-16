@@ -14,6 +14,7 @@ export type TopButtonTypes = TopOfScreenButtonTypes | "Button5";
 export type SideButtonTypes = WheelButtonType | FrontButtonType;
 export type ButtonTypes = TopButtonTypes | SideButtonTypes;
 export type LabelableButtonType = TopOfScreenButtonTypes | FrontButtonType;
+export type WheelDirectionType = "left" | "right";
 
 /**
  * Not including positions for wheel button or button 5.
@@ -77,7 +78,7 @@ export const useKeyUp = (
   });
 };
 
-export const useWheel = (callback: (direction: "left" | "right") => void) => {
+export const useWheel = (callback: (direction: WheelDirectionType) => void) => {
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
