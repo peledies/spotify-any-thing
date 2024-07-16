@@ -44,31 +44,42 @@ export default function App() {
     setProgress(newProgress < 0 ? 0 : newProgress > 100 ? 100 : newProgress);
   });
 
+  const labelStyles = {
+    styleClasses: "text-black bg-white",
+    activeStyleClasses: "text-white bg-red-600",
+  };
+
   const buttonLabels: ButtonLabelPropType[] = [
     {
       label: "Button 1",
       button: "Button1",
       labelActive: labelState.Button1 ?? false,
+
+      ...labelStyles,
     },
     {
       label: "Button 2",
       button: "Button2",
       labelActive: labelState.Button2 ?? false,
+      ...labelStyles,
     },
     {
       label: "Button 3",
       button: "Button3",
       labelActive: labelState.Button3 ?? false,
+      ...labelStyles,
     },
     {
       label: "Button 4",
       button: "Button4",
       labelActive: labelState.Button4 ?? false,
+      ...labelStyles,
     },
     {
       label: "Button Front",
       button: "ButtonFront",
       labelActive: labelState.ButtonFront ?? false,
+      ...labelStyles,
     },
   ];
 

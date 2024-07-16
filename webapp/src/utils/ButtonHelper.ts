@@ -44,15 +44,21 @@ const ButtonCodeMap: Map<string, ButtonTypes> = new Map([
   ["Enter", "ButtonWheel"],
 ]);
 
+const getKeyboardEventHandler = (
+  callbacks: Partial<Record<ButtonTypes, () => void>>
+) => {
+  return (e: KeyboardEvent) => {
+    e.preventDefault();
+    const button = ButtonCodeMap.get(e.code);
+    if (button === undefined) return;
+    callbacks[button]?.();
+  };
+};
+
 export const useKeyDown = (
   callbacks: Partial<Record<ButtonTypes, () => void>>
 ) => {
-  const handleKeyDown = (e: KeyboardEvent) => {
-    const button = ButtonCodeMap.get(e.code);
-    if (button === undefined) return;
-    e.preventDefault();
-    callbacks[button]?.();
-  };
+  const handleKeyDown = getKeyboardEventHandler(callbacks);
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
     return () => {
@@ -64,12 +70,7 @@ export const useKeyDown = (
 export const useKeyUp = (
   callbacks: Partial<Record<ButtonTypes, () => void>>
 ) => {
-  const handleKeyUp = (e: KeyboardEvent) => {
-    const button = ButtonCodeMap.get(e.code);
-    if (button === undefined) return;
-    e.preventDefault();
-    callbacks[button]?.();
-  };
+  const handleKeyUp = getKeyboardEventHandler(callbacks);
   useEffect(() => {
     document.addEventListener("keyup", handleKeyUp);
     return () => {
