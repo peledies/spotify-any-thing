@@ -34,7 +34,7 @@ export const ButtonLabelPositions: Map<LabelableButtonType, string> = new Map([
  * use this to convert an e.code to a Button
  * type
  */
-export const ButtonCodeMap: Map<string, ButtonTypes> = new Map([
+const ButtonCodeMap: Map<string, ButtonTypes> = new Map([
   ["Digit1", "Button1"],
   ["Digit2", "Button2"],
   ["Digit3", "Button3"],
@@ -47,13 +47,13 @@ export const ButtonCodeMap: Map<string, ButtonTypes> = new Map([
 export const useKeyDown = (
   callbacks: Partial<Record<ButtonTypes, () => void>>
 ) => {
+  const handleKeyDown = (e: KeyboardEvent) => {
+    const button = ButtonCodeMap.get(e.code);
+    if (button === undefined) return;
+    e.preventDefault();
+    callbacks[button]?.();
+  };
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      const button = ButtonCodeMap.get(e.code);
-      if (button === undefined) return;
-      e.preventDefault();
-      callbacks[button]?.();
-    };
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
@@ -64,13 +64,13 @@ export const useKeyDown = (
 export const useKeyUp = (
   callbacks: Partial<Record<ButtonTypes, () => void>>
 ) => {
+  const handleKeyUp = (e: KeyboardEvent) => {
+    const button = ButtonCodeMap.get(e.code);
+    if (button === undefined) return;
+    e.preventDefault();
+    callbacks[button]?.();
+  };
   useEffect(() => {
-    const handleKeyUp = (e: KeyboardEvent) => {
-      const button = ButtonCodeMap.get(e.code);
-      if (button === undefined) return;
-      e.preventDefault();
-      callbacks[button]?.();
-    };
     document.addEventListener("keyup", handleKeyUp);
     return () => {
       document.removeEventListener("keyup", handleKeyUp);
