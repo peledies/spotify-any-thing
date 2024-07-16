@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite serve -c ./vite.config.js ./webapp",
-    "build": "vite build -c ./vite.config.js ./webapp"
+    "build": "vite build -c ./vite.config.js ./webapp",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "react": "^18.3.1",

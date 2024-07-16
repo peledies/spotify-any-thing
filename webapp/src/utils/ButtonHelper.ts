@@ -1,36 +1,56 @@
 import { useEffect } from "react";
 
-export enum Button {
-  BUTTON_1,
-  BUTTON_2,
-  BUTTON_3,
-  BUTTON_4,
-  BUTTON_5,
-}
+/**
+ * 7 buttons, sliced every way I can think of
+ */
+export type TopOfScreenButtonTypes =
+  | "Button1"
+  | "Button2"
+  | "Button3"
+  | "Button4";
+export type WheelButtonType = "ButtonWheel";
+export type FrontButtonType = "ButtonFront";
+export type TopButtonTypes = TopOfScreenButtonTypes | "Button5";
+export type SideButtonTypes = WheelButtonType | FrontButtonType;
+export type ButtonTypes = TopButtonTypes | SideButtonTypes;
+export type LabelableButtonType = TopOfScreenButtonTypes | FrontButtonType;
 
-export const ButtonLabelPositions = new Map([
-  [Button.BUTTON_1, "absolute top-0 -translate-x-1/2 left-[96px]"],
-  [Button.BUTTON_2, "absolute top-0 -translate-x-1/2 left-[298px]"],
-  [Button.BUTTON_3, "absolute top-0 -translate-x-1/2 left-[500px]"],
-  [Button.BUTTON_4, "absolute top-0 -translate-x-1/2 left-[702px]"],
+/**
+ * Not including positions for wheel button or button 5.
+ * Wheel covers part of the screen, and button 5 is
+ * to the right of the screen
+ */
+export const ButtonLabelPositions: Map<LabelableButtonType, string> = new Map([
+  ["Button1", "absolute top-0 -translate-x-1/2 left-[96px]"],
+  ["Button2", "absolute top-0 -translate-x-1/2 left-[298px]"],
+  ["Button3", "absolute top-0 -translate-x-1/2 left-[500px]"],
+  ["Button4", "absolute top-0 -translate-x-1/2 left-[702px]"],
+  ["ButtonFront", "absolute right-0 bottom-[50px]"],
 ]);
 
-export const ButtonCodeMap = new Map([
-  ["Digit1", Button.BUTTON_1],
-  ["Digit2", Button.BUTTON_2],
-  ["Digit3", Button.BUTTON_3],
-  ["Digit4", Button.BUTTON_4],
-  ["KeyM", Button.BUTTON_5],
-  // ["Enter", Button.SCROLL_PRESS],
-  // ["Escape", Button.FRONT_BUTTON],
+/**
+ * Keys are the e.code from a button event,
+ * use this to convert an e.code to a Button
+ * type
+ */
+export const ButtonCodeMap: Map<string, ButtonTypes> = new Map([
+  ["Digit1", "Button1"],
+  ["Digit2", "Button2"],
+  ["Digit3", "Button3"],
+  ["Digit4", "Button4"],
+  ["KeyM", "Button5"],
+  ["Escape", "ButtonFront"],
+  ["Enter", "ButtonWheel"],
 ]);
 
-export const useKeyDown = (callbacks: Partial<Record<Button, () => void>>) => {
+export const useKeyDown = (
+  callbacks: Partial<Record<ButtonTypes, () => void>>
+) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      e.preventDefault();
       const button = ButtonCodeMap.get(e.code);
       if (button === undefined) return;
+      e.preventDefault();
       callbacks[button]?.();
     };
     document.addEventListener("keydown", handleKeyDown);
@@ -40,33 +60,19 @@ export const useKeyDown = (callbacks: Partial<Record<Button, () => void>>) => {
   });
 };
 
-export const useKeyUp = (callbacks: Partial<Record<Button, () => void>>) => {
+export const useKeyUp = (
+  callbacks: Partial<Record<ButtonTypes, () => void>>
+) => {
   useEffect(() => {
     const handleKeyUp = (e: KeyboardEvent) => {
-      e.preventDefault();
       const button = ButtonCodeMap.get(e.code);
       if (button === undefined) return;
+      e.preventDefault();
       callbacks[button]?.();
     };
     document.addEventListener("keyup", handleKeyUp);
     return () => {
       document.removeEventListener("keyup", handleKeyUp);
-    };
-  });
-};
-
-// NOTE: Not implemented, but could be used in addition to or instead of useKeyDown and useKeyUp
-export const useKeyPress = (callbacks: Partial<Record<Button, () => void>>) => {
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      e.preventDefault();
-      const button = ButtonCodeMap.get(e.code);
-      if (button === undefined) return;
-      callbacks[button]?.();
-    };
-    document.addEventListener("keypress", handleKeyPress);
-    return () => {
-      document.removeEventListener("keypress", handleKeyPress);
     };
   });
 };

@@ -1,39 +1,42 @@
 import { useState } from "react";
-import ButtonLabel from "./components/ButtonLabel";
-import { Button, useKeyDown, useKeyUp, useWheel } from "./utils/ButtonHelper";
+import { ButtonLabelPropType } from "./components/ButtonLabel";
+import Layout from "./layout";
+import {
+  LabelableButtonType,
+  useKeyDown,
+  useKeyUp,
+  useWheel,
+} from "./utils/ButtonHelper";
 
 export default function App() {
   const [labelState, setLabelState] = useState<
-    Partial<Record<Button, boolean>>
+    Partial<Record<LabelableButtonType, boolean>>
   >({
-    [Button.BUTTON_1]: false,
-    [Button.BUTTON_2]: false,
-    [Button.BUTTON_3]: false,
-    [Button.BUTTON_4]: false,
+    Button1: false,
+    Button2: false,
+    Button3: false,
+    Button4: false,
+    ButtonFront: false,
   });
 
   const [progress, setProgress] = useState(0);
 
   useKeyDown({
-    [Button.BUTTON_1]: () =>
-      setLabelState({ ...labelState, [Button.BUTTON_1]: true }),
-    [Button.BUTTON_2]: () =>
-      setLabelState({ ...labelState, [Button.BUTTON_2]: true }),
-    [Button.BUTTON_3]: () =>
-      setLabelState({ ...labelState, [Button.BUTTON_3]: true }),
-    [Button.BUTTON_4]: () =>
-      setLabelState({ ...labelState, [Button.BUTTON_4]: true }),
+    Button1: () => setLabelState({ ...labelState, Button1: true }),
+    Button2: () => setLabelState({ ...labelState, Button2: true }),
+    Button3: () => setLabelState({ ...labelState, Button3: true }),
+    Button4: () => setLabelState({ ...labelState, Button4: true }),
+    Button5: () => alert("Button 5 pressed!"),
+    ButtonFront: () => setLabelState({ ...labelState, ButtonFront: true }),
+    ButtonWheel: () => alert("Wheel pressed!"),
   });
 
   useKeyUp({
-    [Button.BUTTON_1]: () =>
-      setLabelState({ ...labelState, [Button.BUTTON_1]: false }),
-    [Button.BUTTON_2]: () =>
-      setLabelState({ ...labelState, [Button.BUTTON_2]: false }),
-    [Button.BUTTON_3]: () =>
-      setLabelState({ ...labelState, [Button.BUTTON_3]: false }),
-    [Button.BUTTON_4]: () =>
-      setLabelState({ ...labelState, [Button.BUTTON_4]: false }),
+    Button1: () => setLabelState({ ...labelState, Button1: false }),
+    Button2: () => setLabelState({ ...labelState, Button2: false }),
+    Button3: () => setLabelState({ ...labelState, Button3: false }),
+    Button4: () => setLabelState({ ...labelState, Button4: false }),
+    ButtonFront: () => setLabelState({ ...labelState, ButtonFront: false }),
   });
 
   useWheel((direction) => {
@@ -41,8 +44,36 @@ export default function App() {
     setProgress(newProgress < 0 ? 0 : newProgress > 100 ? 100 : newProgress);
   });
 
+  const buttonLabels: ButtonLabelPropType[] = [
+    {
+      label: "Button 1",
+      button: "Button1",
+      labelActive: labelState.Button1 ?? false,
+    },
+    {
+      label: "Button 2",
+      button: "Button2",
+      labelActive: labelState.Button2 ?? false,
+    },
+    {
+      label: "Button 3",
+      button: "Button3",
+      labelActive: labelState.Button3 ?? false,
+    },
+    {
+      label: "Button 4",
+      button: "Button4",
+      labelActive: labelState.Button4 ?? false,
+    },
+    {
+      label: "Button Front",
+      button: "ButtonFront",
+      labelActive: labelState.ButtonFront ?? false,
+    },
+  ];
+
   return (
-    <div className="relative" style={{ height: 480, width: 800 }}>
+    <Layout showBorder={true} buttonLabels={buttonLabels}>
       <div className="absolute top-[50px] left-0 right-0 bottom-0">
         <div className="w-3/4 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
           <div
@@ -51,26 +82,6 @@ export default function App() {
           ></div>
         </div>
       </div>
-      <ButtonLabel
-        label="Button 1"
-        button={Button.BUTTON_1}
-        buttonPressed={labelState[Button.BUTTON_1] ?? false}
-      />
-      <ButtonLabel
-        label="Button 2"
-        button={Button.BUTTON_2}
-        buttonPressed={labelState[Button.BUTTON_2] ?? false}
-      />
-      <ButtonLabel
-        label="Button 3"
-        button={Button.BUTTON_3}
-        buttonPressed={labelState[Button.BUTTON_3] ?? false}
-      />
-      <ButtonLabel
-        label="Button 4"
-        button={Button.BUTTON_4}
-        buttonPressed={labelState[Button.BUTTON_4] ?? false}
-      />
-    </div>
+    </Layout>
   );
 }
