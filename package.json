@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite serve -c ./vite.config.js ./webapp",
+    "prod": "vite build -c ./vite.config.js ./webapp && vite preview",
     "build": "vite build -c ./vite.config.js ./webapp",
     "format": "prettier --write 'webapp/src/**/*.ts' 'webapp/src/**/*.tsx'",
     "typecheck": "tsc --noEmit"
