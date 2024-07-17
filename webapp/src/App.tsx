@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ButtonLabelPropType } from "./components/ButtonLabel";
+import ButtonLabel from "./components/ButtonLabel";
 import Layout from "./layout";
 import {
   LabelableButtonType,
@@ -49,42 +49,38 @@ export default function App() {
     activeStyleClasses: "text-white bg-red-600",
   };
 
-  const buttonLabels: ButtonLabelPropType[] = [
-    {
-      label: "Button 1",
-      button: "Button1",
-      labelActive: labelState.Button1 ?? false,
-
-      ...labelStyles,
-    },
-    {
-      label: "Button 2",
-      button: "Button2",
-      labelActive: labelState.Button2 ?? false,
-      ...labelStyles,
-    },
-    {
-      label: "Button 3",
-      button: "Button3",
-      labelActive: labelState.Button3 ?? false,
-      ...labelStyles,
-    },
-    {
-      label: "Button 4",
-      button: "Button4",
-      labelActive: labelState.Button4 ?? false,
-      ...labelStyles,
-    },
-    {
-      label: "Button Front",
-      button: "ButtonFront",
-      labelActive: labelState.ButtonFront ?? false,
-      ...labelStyles,
-    },
-  ];
-
   return (
-    <Layout showBorder={true} buttonLabels={buttonLabels}>
+    <Layout showBorder={true}>
+      <ButtonLabel
+        button="Button1"
+        label="Button 1"
+        labelActive={labelState.Button1 ?? false}
+        {...labelStyles}
+      />
+      <ButtonLabel
+        button="Button2"
+        label="Button 2"
+        labelActive={labelState.Button2 ?? false}
+        {...labelStyles}
+      />
+      <ButtonLabel
+        button="Button3"
+        label="Button 3"
+        labelActive={labelState.Button3 ?? false}
+        {...labelStyles}
+      />
+      <ButtonLabel
+        button="Button4"
+        label="Button 4"
+        labelActive={labelState.Button4 ?? false}
+        {...labelStyles}
+      />
+      <ButtonLabel
+        button="ButtonFront"
+        label="Button Front"
+        labelActive={labelState.ButtonFront ?? false}
+        {...labelStyles}
+      />
       <div className="absolute top-[50px] left-0 right-0 bottom-0">
         <div className="w-3/4 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
           <div
