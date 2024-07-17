@@ -45,7 +45,7 @@ const ButtonCodeMap: Map<string, ButtonTypes> = new Map([
 ]);
 
 const getKeyboardEventHandler = (
-  callbacks: Partial<Record<ButtonTypes, () => void>>
+  callbacks: Partial<Record<ButtonTypes, () => void>>,
 ) => {
   return (e: KeyboardEvent) => {
     e.preventDefault();
@@ -56,7 +56,7 @@ const getKeyboardEventHandler = (
 };
 
 export const useKeyDown = (
-  callbacks: Partial<Record<ButtonTypes, () => void>>
+  callbacks: Partial<Record<ButtonTypes, () => void>>,
 ) => {
   const handleKeyDown = getKeyboardEventHandler(callbacks);
   useEffect(() => {
@@ -68,7 +68,7 @@ export const useKeyDown = (
 };
 
 export const useKeyUp = (
-  callbacks: Partial<Record<ButtonTypes, () => void>>
+  callbacks: Partial<Record<ButtonTypes, () => void>>,
 ) => {
   const handleKeyUp = getKeyboardEventHandler(callbacks);
   useEffect(() => {
