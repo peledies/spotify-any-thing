@@ -18,7 +18,7 @@ info_box() {
 
 FIRMWARES=(
   "8.1.6_adb_enabled.tar.xz"
-  "8.2.5_adb_enabled"
+  "8.2.5_adb_enabled.tar.xz"
   "8.2.5_nonpremium.tar.xz"
   "8.2.5_stock.tar.xz"
   "factory_fresh.tar.xz"
@@ -37,7 +37,7 @@ if [ -z "$firmware" ]; then
   exit 1
 fi
 
-firmware_dir=${firmware%%.*}
+firmware_dir=${firmware%.tar.xz}
 
 info_box "Downloading firmware"
 echo "  Downloading [${magenta}${firmware}${default}] firmware to [${magenta}${PWD}/firmware/${firmware}.tar.xz${default}]"
