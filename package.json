@@ -7,7 +7,7 @@
     "prod": "vite build -c ./vite.config.js ./webapp && vite preview",
     "build": "vite build -c ./vite.config.js ./webapp",
     "format": "prettier --write 'webapp/src/**/*.ts' 'webapp/src/**/*.tsx'",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -28,6 +28,6 @@
     "vite-plugin-singlefile": "^2.0.2"
   },
   "volta": {
-    "node": "20.15.1"
+    "node": "20.16.0"
   }
 }

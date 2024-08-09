@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren } from 'react';
 
 interface PropType {
   showBorder?: boolean;
@@ -7,7 +7,7 @@ interface PropType {
 export default function Layout(props: PropsWithChildren<PropType>) {
   return (
     <div
-      className={`relative ${props.showBorder && "border border-white"}`}
+      className={`relative ${props.showBorder && 'border border-white'}`}
       style={{ height: 480, width: 800 }}
     >
       {props.children}
