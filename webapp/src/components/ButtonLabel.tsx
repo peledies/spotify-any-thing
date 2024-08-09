@@ -7,7 +7,7 @@ import {
 export interface ButtonLabelPropType {
   label: string;
   button: LabelableButtons;
-  labelActive: boolean;
+  labelActive?: boolean;
   styleClasses?: string;
   activeStyleClasses?: string;
 }

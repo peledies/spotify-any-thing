@@ -52,7 +52,7 @@ const ButtonCodeMap: Map<string, Buttons> = new Map([
   ['Digit2', Buttons.Button2],
   ['Digit3', Buttons.Button3],
   ['Digit4', Buttons.Button4],
-  ['Digit5', Buttons.Button5],
+  ['Digit5', Buttons.Button5], // Added for keyboards
   ['KeyM', Buttons.Button5],
   ['Escape', Buttons.ButtonFront],
   ['Enter', Buttons.ButtonWheel],
