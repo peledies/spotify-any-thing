@@ -1,13 +1,17 @@
-import { useState } from 'react';
 import Menu from './components/Menu';
 import Layout from './layout';
+import { useAppDispatch, useAppSelector } from './store/hooks';
+import { toggleMenu } from './store/slices/navigation';
 import { Buttons, useKeyDown } from './utils/ButtonHelper';
 
 export default function App() {
-  const [showMenu, setShowMenu] = useState<boolean>(false);
+  const showMenu = useAppSelector((state) => state.navigation.showMenu);
+  const dispatch = useAppDispatch();
 
   useKeyDown({
-    [Buttons.Button5]: () => setShowMenu(!showMenu),
+    [Buttons.Button5]: () => {
+      dispatch(toggleMenu());
+    },
   });
 
   return (
