@@ -17,7 +17,7 @@ export default function App() {
   return (
     <>
       <Layout showBorder={true} buttonLabel1={{ label: 'Test label 1' }}>
-        {showMenu && <Menu />}
+        <Menu />
         {!showMenu && (
           <div className="w-full h-full border border-green-500">
             <div>This is the application</div>

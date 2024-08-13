@@ -1,13 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface NavigationStateType {
   showMenu: boolean;
-  showPage: string;
+  currentPage: number;
 }
 
 const initialState: NavigationStateType = {
   showMenu: false,
-  showPage: 'something',
+  currentPage: 0,
 };
 
 const navigationSlice = createSlice({
@@ -23,8 +23,15 @@ const navigationSlice = createSlice({
     toggleMenu: (state) => {
       state.showMenu = !state.showMenu;
     },
+    setCurrentPage: (
+      state,
+      action: PayloadAction<NavigationStateType['currentPage']>
+    ) => {
+      state.currentPage = action.payload;
+    },
   },
 });
 
-export const { openMenu, closeMenu, toggleMenu } = navigationSlice.actions;
+export const { openMenu, closeMenu, toggleMenu, setCurrentPage } =
+  navigationSlice.actions;
 export default navigationSlice.reducer;

@@ -62,9 +62,9 @@ const getKeyboardEventHandler = (
   callbacks: Partial<Record<Buttons, () => void>>
 ) => {
   return (e: KeyboardEvent) => {
-    e.preventDefault();
     const button = ButtonCodeMap.get(e.code);
     if (button === undefined) return;
+    e.preventDefault();
     callbacks[button]?.();
   };
 };
@@ -92,7 +92,6 @@ export const useKeyUp = (callbacks: Partial<Record<Buttons, () => void>>) => {
 export const useWheel = (callback: (direction: WheelDirection) => void) => {
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
-      e.preventDefault();
       const right = e.deltaX > 0;
       callback(right ? WheelDirection.Right : WheelDirection.Left);
     };
